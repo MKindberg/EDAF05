@@ -10,11 +10,20 @@ import java.util.Scanner;
 public class GS {
 
 	public static void main(String[] args) {
+		Scanner s1 = new Scanner(System.in);
 		File file = null;
+		// which file?
 		if (args.length != 0)
 			file = new File(args[0]);
-		else
-			file = new File("sm-worst-500.in");
+		else {
+			System.out.print("File name: ");
+			String f = s1.nextLine();
+			if (f.isEmpty())
+				file = new File("sm-kt-p-5.in");
+			else
+				file = new File(f);
+		}
+		// Read input
 		Scanner s;
 		int n = 0;
 		String chars[] = null;
@@ -50,36 +59,7 @@ public class GS {
 		for (int i = 1; i <= 2 * n; i++)
 			pairs.put(i, -1);
 
-		// int n = 3;
-		// String[] chars = { "Ross ", "Monica", "Chandler", "Phoebe", "Joey ",
-		// "Rachel" };
-		// int[][] prefs1 = { { 6, 4, 2 }, { 3, 5, 1 }, { 2, 6, 4 }, { 5, 1, 3
-		// }, { 6, 4, 2 }, { 1, 5, 3 } };
-		// LinkedList<Integer>[] prefs = new LinkedList[2 * n + 1];
-		// for (int i = 0; i < prefs1.length; i++) {
-		// prefs[i + 1] = new LinkedList<Integer>();
-		// for (int j = 0; j < prefs1[0].length; j++)
-		// prefs[i + 1].add(prefs1[i][j]);
-		// }
-		// Map<Integer, Integer> pairs = new HashMap<Integer, Integer>();
-		//
-		// pairs.put(1, -1);
-		// pairs.put(3, -1);
-		// pairs.put(5, -1);
-		// pairs.put(2, -1);
-		// pairs.put(4, -1);
-		// pairs.put(6, -1);
-
-		// control:
-		// for (int i = 0; i < 2 * n; i++)
-		// System.out.println(chars[i]);
-		// System.out.println();
-		// for (int i = 0; i < 2 * n; i++) {
-		// for (int j = 0; j < n; j++)
-		// System.out.print(prefs[i + 1].get(j) + " ");
-		// System.out.println();
-		// }
-
+		// algorithm
 		Integer male = 1;
 		while (pairs.containsValue(-1)) {
 			while (pairs.get(male) != -1)
