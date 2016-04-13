@@ -11,6 +11,8 @@ public class Span {
 
 	private static LinkedList<Pair> connections;
 
+	private static LinkedList<Pair> road;
+
 	public static void main(String[] args) {
 		File file = getFileName(args);
 		try {
@@ -19,11 +21,34 @@ public class Span {
 			e.printStackTrace();
 		}
 
-		for (Pair p : connections)
-			System.out.println(p);
+		connections.sort(null);
+		UnionFind uf = new UnionFind(cities.size());
 
+		road = new LinkedList<Pair>();
+
+		for (Pair c : connections) {
+			int a = cities.indexOf(c.getCity1());
+			int b = cities.indexOf(c.getCity2());
+			if (uf.find(a) != uf.find(b)) {
+				uf.union(a, b);
+				road.add(c);
+			}
+		}
+		int len = 0;
+		for (Pair r : road) {
+			System.out.println(r);
+			len += r.getDist();
+		}
+		System.out.println(len);
 	}
 
+	/**
+	 * Reads the input and places it in cities and connections
+	 * 
+	 * @param file
+	 *            The file to read
+	 * @throws FileNotFoundException
+	 */
 	private static void readInput(File file) throws FileNotFoundException {
 		Scanner s = new Scanner(file);
 		cities = new ArrayList<String>();
@@ -35,23 +60,33 @@ public class Span {
 
 		connections = new LinkedList<Pair>();
 		while (s.hasNextLine()) {
-			// int[] data = new int[3];
 			String[] d = line.split("\\[");
 			String[] c = d[0].split("--");
-			// data[0] = cities.indexOf(c[0]);
-			// data[1] = cities.indexOf(c[1].substring(0, c[1].length() - 1));
-			// data[2] = Integer.parseInt(d[1].substring(0, d[1].length() - 1));
-			connections.add(new Pair(c[0], c[1].substring(0, c[1].length() - 1),
-					Integer.parseInt(d[1].substring(0, d[1].length() - 1))));
+			String city1 = c[0];
+			String city2 = c[1].substring(0, c[1].length() - 1);
+			int dist = Integer.parseInt(d[1].substring(0, d[1].length() - 1));
+			int city1n = cities.indexOf(city1);
+			int city2n = cities.indexOf(city2);
+			connections.add(new Pair(city1, city2, dist, city1n, city2n));
 			line = s.nextLine();
 		}
 		String[] d = line.split("\\[");
 		String[] c = d[0].split("--");
-		connections.add(new Pair(c[0], c[1].substring(0, c[1].length() - 1),
-				Integer.parseInt(d[1].substring(0, d[1].length() - 1))));
+		String city1 = c[0];
+		String city2 = c[1].substring(0, c[1].length() - 1);
+		int dist = Integer.parseInt(d[1].substring(0, d[1].length() - 1));
+		int city1n = cities.indexOf(city1);
+		int city2n = cities.indexOf(city2);
+		connections.add(new Pair(city1, city2, dist, city1n, city2n));
 		s.close();
 	}
 
+	/**
+	 * Reads the filename from either args or system input
+	 * 
+	 * @param args
+	 * @return The filename
+	 */
 	private static File getFileName(String[] args) {
 		String path = "";
 		String file = null;
