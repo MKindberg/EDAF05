@@ -19,7 +19,7 @@ public class GS {
 			System.out.print("File name: ");
 			String f = s1.nextLine();
 			if (f.isEmpty())
-				file = new File("sm-kt-p-5.in");
+				file = new File("sm-friends.in");
 			else
 				file = new File(f);
 		}

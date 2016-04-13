@@ -1,4 +1,4 @@
-package words;
+package wordLadder;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-public class Words {
+public class WL {
 	public static void main(String[] args) {
 
 		File file = getName(args, 0);
@@ -39,7 +39,10 @@ public class Words {
 							linked = false;
 							break;
 						} else
-							w = w.substring(0, index) + w.substring(index + 1);
+							w = w.substring(0, index) + w.substring(index + 1); // remove
+																				// the
+																				// found
+																				// letter
 					}
 					if (linked)
 						relations[i].add(j);
