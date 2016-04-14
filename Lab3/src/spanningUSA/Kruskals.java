@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-public class Span {
+public class Kruskals {
 	private static ArrayList<String> cities;
 
 	private static LinkedList<Pair> connections;
