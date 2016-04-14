@@ -23,6 +23,14 @@ public class Pair implements Comparable<Pair> {
 		return city2;
 	}
 
+	public int getCity2n() {
+		return city2n;
+	}
+
+	public int getCity1n() {
+		return city1n;
+	}
+
 	public int getDist() {
 		return dist;
 	}
