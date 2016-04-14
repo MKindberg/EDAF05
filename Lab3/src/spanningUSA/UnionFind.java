@@ -31,12 +31,4 @@ public class UnionFind {
 			if (inUnion[i] == u)
 				inUnion[i] = inUnion[a];
 	}
-
-	public boolean allIn() {
-		int a = inUnion[0];
-		for (int b : inUnion)
-			if (a != b)
-				return false;
-		return true;
-	}
 }

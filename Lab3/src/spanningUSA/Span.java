@@ -33,7 +33,8 @@ public class Span {
 											// create a loop
 				uf.union(a, b);
 				road.add(c);
-				if (uf.allIn())// if all nodes are in the same union
+				if (road.size() == cities.size())// if we already visit every
+													// city
 					break;
 			}
 		}
