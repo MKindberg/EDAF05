@@ -112,18 +112,14 @@ public class Cp {
 		double delta = Math.min(minL, minR);
 		LinkedList<Point> closeToL = new LinkedList<Point>();
 		LinkedList<Point> closeToR = new LinkedList<Point>();
-		for (int i = 1; mid - i > start && points[mid - i].getX() - midX < delta; i++)
+		for (int i = 1; mid - i > start && points[mid - i].getX() - midX <= delta; i++)
 			closeToL.add(points[mid - i]);
-
 		closeToR.add(points[mid]);
-		for (int i = 0; mid + i < end && points[mid + i].getX() - midX < delta; i++)
-			closeToL.add(points[mid + i]);
-
+		for (int i = 1; mid + i < end && points[mid + i].getX() - midX <= delta; i++)
+			closeToR.add(points[mid + i]);
 		double min = delta;
 		for (Point pL : closeToL)
-			for (Point pR : closeToR)
-
-			{
+			for (Point pR : closeToR) {
 				double dist = pL.distanceTo(pR);
 				if (min > dist && dist != 0)
 					min = dist;
@@ -177,7 +173,7 @@ public class Cp {
 			System.out.print("Enter filename: ");
 			file = s.nextLine();
 			if (file.isEmpty()) {
-				file = "gr229.tsp";
+				file = "burma14.tsp";
 				System.out.println("Using default file: " + file);
 			}
 			// s.close();
