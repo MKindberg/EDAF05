@@ -1,6 +1,6 @@
 package closestPoints;
 
-public class Point {
+public class Point implements Comparable<Point> {
 	private double x;
 	private double y;
 
@@ -23,5 +23,14 @@ public class Point {
 
 	public String toString() {
 		return "(" + x + ", " + y + ")";
+	}
+
+	@Override
+	public int compareTo(Point p) {
+		return Double.compare(x, p.getX());
+	}
+
+	public boolean equals(Point p) {
+		return x == p.getX() && y == p.getY();
 	}
 }
