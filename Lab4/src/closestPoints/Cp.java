@@ -39,6 +39,12 @@ public class Cp {
 	}
 
 	private static void testAll() {
+		Scanner s = null;
+		try {
+			s = new Scanner(new File("TestFiles\\closest-pair.out"));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		File folder = new File("TestFiles");
 		File[] files = folder.listFiles(new FileFilter() {
 
@@ -50,6 +56,8 @@ public class Cp {
 
 		int w = 0;
 		for (File file : files) {
+			s.next();
+			s.next();
 			System.out.print(file.getName() + ": ");
 			readInput(file);
 
@@ -57,11 +65,11 @@ public class Cp {
 
 			double min = closest(0, points.length);
 			minG = Double.MAX_VALUE;
-			double minb = bruteForce();
-			if (min == minb)
+			double minb = Double.parseDouble(s.next());
+			if (min - minb < 0.00001)
 				System.out.println("OK!");
 			else {
-				System.out.println("Wrong, Calculated: " + min + ". Bruteforce: " + minb);
+				System.out.println("Wrong, Calculated: " + min + ". Answer: " + minb);
 				w++;
 			}
 		}
