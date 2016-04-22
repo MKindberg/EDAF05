@@ -11,6 +11,8 @@ public class Cp {
 
 	private static Point[] points;
 
+	private static double minG;
+
 	public static void main(String[] args) {
 		testAll();
 		// testOne(args);
@@ -84,19 +86,18 @@ public class Cp {
 	private static double closest(int start, int end) {
 		// calculate min in this half
 		int len = end - start;
-
 		if (len <= 3) {
 			double min = points[start].distanceTo(points[start + 1]);
 			if (len == 3) {
 				double dist = points[start].distanceTo(points[start + 2]);
-				if (min > dist && dist != 0)
+				if (min > dist)
 					min = dist;
 				dist = points[start + 1].distanceTo(points[start + 2]);
-				if (min > dist && dist != 0)
+				if (min > dist)
 					min = dist;
 			}
+			minG = min;
 			return min;
-
 		}
 
 		int mid = start + len / 2;
@@ -110,21 +111,22 @@ public class Cp {
 
 		double midX = points[mid].getX();
 		double delta = Math.min(minL, minR);
+		delta = Math.min(delta, minG);
+
 		LinkedList<Point> closeToL = new LinkedList<Point>();
 		LinkedList<Point> closeToR = new LinkedList<Point>();
-		for (int i = 1; mid - i > start && points[mid - i].getX() - midX <= delta; i++)
+		for (int i = 0; mid - i > start && points[mid - i].getX() - midX < delta; i++)
 			closeToL.add(points[mid - i]);
-		closeToR.add(points[mid]);
-		for (int i = 1; mid + i < end && points[mid + i].getX() - midX <= delta; i++)
+		for (int i = 0; mid + i < end && points[mid + i].getX() - midX < delta; i++)
 			closeToR.add(points[mid + i]);
 		double min = delta;
 		for (Point pL : closeToL)
 			for (Point pR : closeToR) {
 				double dist = pL.distanceTo(pR);
-				if (min > dist && dist != 0)
+				if (min > dist && pL != pR)
 					min = dist;
 			}
-
+		minG = min;
 		return min;
 
 	}
@@ -173,7 +175,7 @@ public class Cp {
 			System.out.print("Enter filename: ");
 			file = s.nextLine();
 			if (file.isEmpty()) {
-				file = "burma14.tsp";
+				file = "rl1323.tsp";
 				System.out.println("Using default file: " + file);
 			}
 			// s.close();
