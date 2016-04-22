@@ -11,7 +11,7 @@ public class Cp {
 
 	private static Point[] points;
 
-	private static double minG;
+	private static double minG = Double.MAX_VALUE;
 
 	public static void main(String[] args) {
 		testAll();
@@ -56,7 +56,7 @@ public class Cp {
 			Arrays.sort(points);
 
 			double min = closest(0, points.length);
-
+			minG = Double.MAX_VALUE;
 			double minb = bruteForce();
 			if (min == minb)
 				System.out.println("OK!");
@@ -96,7 +96,9 @@ public class Cp {
 				if (min > dist)
 					min = dist;
 			}
-			minG = min;
+			if (minG > min)
+				minG = min;
+
 			return min;
 		}
 
@@ -126,7 +128,8 @@ public class Cp {
 				if (min > dist && pL != pR)
 					min = dist;
 			}
-		minG = min;
+		if (minG > min)
+			minG = min;
 		return min;
 
 	}
