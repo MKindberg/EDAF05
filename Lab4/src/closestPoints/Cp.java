@@ -11,8 +11,6 @@ public class Cp {
 
 	private static Point[] points;
 
-	private static double minG = Double.MAX_VALUE;
-
 	public static void main(String[] args) {
 		testAll();
 		// testOne(args);
@@ -64,7 +62,6 @@ public class Cp {
 			Arrays.sort(points);
 
 			double min = closest(0, points.length);
-			minG = Double.MAX_VALUE;
 			double minb = Double.parseDouble(s.next());
 			if (min - minb < 0.00001)
 				System.out.println("OK!");
@@ -104,8 +101,6 @@ public class Cp {
 				if (min > dist)
 					min = dist;
 			}
-			if (minG > min)
-				minG = min;
 
 			return min;
 		}
@@ -113,6 +108,7 @@ public class Cp {
 		int mid = start + len / 2;
 
 		// calculate min of right half
+
 		double minL = closest(start, mid);
 
 		// calculate min of right half
@@ -121,14 +117,21 @@ public class Cp {
 
 		double midX = points[mid].getX();
 		double delta = Math.min(minL, minR);
-		delta = Math.min(delta, minG);
 
-		LinkedList<Point> closeToL = new LinkedList<Point>();
-		LinkedList<Point> closeToR = new LinkedList<Point>();
+		LinkedList<Point> closeToL = new LinkedList<Point>(); // list of points
+																// close to the
+																// mid-line in
+																// the left half
+		LinkedList<Point> closeToR = new LinkedList<Point>(); // list of points
+																// close to the
+																// mid-line in
+																// the right
+																// half
 		for (int i = 0; mid - i > start && points[mid - i].getX() - midX < delta; i++)
 			closeToL.add(points[mid - i]);
 		for (int i = 0; mid + i < end && points[mid + i].getX() - midX < delta; i++)
 			closeToR.add(points[mid + i]);
+
 		double min = delta;
 		for (Point pL : closeToL)
 			for (Point pR : closeToR) {
@@ -136,8 +139,6 @@ public class Cp {
 				if (min > dist && pL != pR)
 					min = dist;
 			}
-		if (minG > min)
-			minG = min;
 		return min;
 
 	}
