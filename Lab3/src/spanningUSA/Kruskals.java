@@ -61,7 +61,10 @@ public class Kruskals {
 		cities = new ArrayList<String>();
 		String line = s.nextLine();
 		while (!line.endsWith("]")) {
-			cities.add(line.substring(0, line.length() - 1));
+			if(line.charAt(line.length()-1) == ' ')
+				cities.add(line.substring(0, line.length() - 1));
+			else 
+				cities.add(line.substring(0, line.length()));
 			line = s.nextLine();
 		}
 
@@ -70,7 +73,7 @@ public class Kruskals {
 			String[] d = line.split("\\[");
 			String[] c = d[0].split("--");
 			String city1 = c[0];
-			String city2 = c[1].substring(0, c[1].length() - 1);
+			String city2 = c[1].substring(0, c[1].length() -1);
 
 			int dist = Integer.parseInt(d[1].substring(0, d[1].length() - 1));
 			int city1n = cities.indexOf(city1);
@@ -109,8 +112,10 @@ public class Kruskals {
 			Scanner s = new Scanner(System.in);
 			System.out.print("Enter filename: ");
 			file = s.nextLine();
-			if (file.isEmpty())
+			if (file.isEmpty()){
 				file = "USA-highway-miles.in";
+				//file = "tinyEWG-alpha.in";
+			}
 			else if (!file.endsWith(".in"))
 				file += ".in";
 			s.close();
